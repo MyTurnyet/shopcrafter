@@ -1,6 +1,6 @@
 package com.softwareascraft.shopcrafter.cart;
 
-public class Item {
+public class Item implements Equatable<Item> {
     private final int sku;
     private final String name;
 

@@ -8,6 +8,6 @@ public class ItemCategory {
     }
 
     public boolean isSameAs(ItemCategory other) {
-        return true;
+        return this.name.equals(other.name);
     }
 }

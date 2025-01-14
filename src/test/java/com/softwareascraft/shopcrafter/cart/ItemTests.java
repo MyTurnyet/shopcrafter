@@ -21,6 +21,12 @@ class ItemTests {
         Item item2 = new Item(2345, "Item Name");
         boolean matches = item1.isSameAs(item2);
         assertThat(matches).isFalse();
-
+    }
+    @Test
+    void doesNotMatchWithDifferentNames() {
+        Item item1 = new Item(1234, "Item Name");
+        Item item2 = new Item(1234, "Other Name");
+        boolean matches = item1.isSameAs(item2);
+        assertThat(matches).isFalse();
     }
 }

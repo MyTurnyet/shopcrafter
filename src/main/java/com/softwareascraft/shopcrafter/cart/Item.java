@@ -10,6 +10,6 @@ public class Item {
     }
 
     public boolean isSameAs(Item otherItem) {
-        return this.sku == otherItem.sku;
+        return this.sku == otherItem.sku && this.name.equals(otherItem.name);
     }
 }

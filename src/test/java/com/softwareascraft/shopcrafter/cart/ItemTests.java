@@ -8,11 +8,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("Unit")
 class ItemTests {
     @Test
-    void itemMatchesNameAndSku() {
+    void itemMatchesSkuAndName() {
         Item item1 = new Item(1234, "Item Name");
         Item item2 = new Item(1234, "Item Name");
         boolean matches = item1.isSameAs(item2);
         assertThat(matches).isTrue();
     }
 
+    @Test
+    void doesNotMatchWithDifferentSKU() {
+        Item item1 = new Item(1234, "Item Name");
+        Item item2 = new Item(2345, "Item Name");
+        boolean matches = item1.isSameAs(item2);
+        assertThat(matches).isFalse();
+
+    }
 }

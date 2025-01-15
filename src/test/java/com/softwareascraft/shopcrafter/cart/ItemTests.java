@@ -11,43 +11,49 @@ class ItemTests {
 
     @Test
     void itemMatchesSkuAndName() {
-        Item item1 = new Item(1234, "Item Name", 0, goodsCategory);
-        Item item2 = new Item(1234, "Item Name", 0, goodsCategory);
-        assertThat(item1).isEqualTo(item2);
+        Item item = new Item(1234, "Item Name", 0, goodsCategory);
+        Item other = new Item(1234, "Item Name", 0, goodsCategory);
+        assertThat(item).isEqualTo(other);
     }
     @Test
     void doesNotMatchWithDifferentPrice() {
-        Item item1 = new Item(1234, "Item Name", 123,goodsCategory );
-        Item item2 = new Item(1234, "Item Name",10, goodsCategory);
-        assertThat(item1).isNotEqualTo(item2);
+        Item item = new Item(1234, "Item Name", 123,goodsCategory );
+        Item other = new Item(1234, "Item Name",10, goodsCategory);
+        assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentSKU() {
-        Item item1 = new Item(1234, "Item Name", 0, goodsCategory);
-        Item item2 = new Item(2345, "Item Name", 0, goodsCategory);
-        assertThat(item1).isNotEqualTo(item2);
+        Item item = new Item(1234, "Item Name", 0, goodsCategory);
+        Item other = new Item(2345, "Item Name", 0, goodsCategory);
+        assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentNames() {
-        Item item1 = new Item(1234, "Item Name", 0,goodsCategory );
-        Item item2 = new Item(1234, "Other Name", 0,goodsCategory );
-        assertThat(item1).isNotEqualTo(item2);
+        Item item = new Item(1234, "Item Name", 0,goodsCategory );
+        Item other = new Item(1234, "Other Name", 0,goodsCategory );
+        assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void hasCategory() {
-        Item item1 = new Item(1234, "Item Name", 0,goodsCategory );
-        boolean hasCategory = item1.isInCategory(goodsCategory);
+        Item item = new Item(1234, "Item Name", 0,goodsCategory );
+        boolean hasCategory = item.isInCategory(goodsCategory);
         assertThat(hasCategory).isTrue();
     }
     @Test
     void doesNotHaveCategory() {
-        Item item1 = new Item(1234, "Item Name", 0,goodsCategory );
+        Item item = new Item(1234, "Item Name", 0,goodsCategory );
         ItemCategory food = new ItemCategory("Food");
-        boolean hasCategory = item1.isInCategory(food);
+        boolean hasCategory = item.isInCategory(food);
         assertThat(hasCategory).isFalse();
     }
 
+    @Test
+    void isNotImported() {
+        Item item = new Item(1234, "Item1", 0, goodsCategory);
+        boolean isImported = item.isImported();
+        assertThat(isImported).isFalse();
+    }
 }

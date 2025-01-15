@@ -14,6 +14,7 @@ public class Item {
         this.price = price;
         this.category = category;
     }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Item item)) return false;
@@ -27,5 +28,9 @@ public class Item {
 
     public boolean isInCategory(ItemCategory expectedCategory) {
         return this.category.equals(expectedCategory);
+    }
+
+    public boolean isImported() {
+        return false;
     }
 }

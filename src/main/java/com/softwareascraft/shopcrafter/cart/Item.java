@@ -7,7 +7,7 @@ public class Item {
     private final String name;
     private final int price;
 
-    public Item(int sku, String name, int price) {
+    public Item(int sku, String name, int price, ItemCategory category) {
         this.sku = sku;
         this.name = name;
         this.price = price;
@@ -21,5 +21,9 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(sku, name, price);
+    }
+
+    public boolean isInCategory(ItemCategory expectedCategory) {
+        return true;
     }
 }

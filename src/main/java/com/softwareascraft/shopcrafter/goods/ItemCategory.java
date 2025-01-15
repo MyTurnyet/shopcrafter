@@ -1,4 +1,4 @@
-package com.softwareascraft.shopcrafter.cart;
+package com.softwareascraft.shopcrafter.goods;
 
 import java.util.Objects;
 

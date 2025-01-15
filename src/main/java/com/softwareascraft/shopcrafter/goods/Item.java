@@ -38,4 +38,8 @@ public class Item {
     public boolean isImported() {
         return this.isImported;
     }
+
+    public int cost() {
+        return this.price;
+    }
 }

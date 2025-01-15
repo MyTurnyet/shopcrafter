@@ -62,4 +62,10 @@ class ItemTests {
         boolean isImported = item.isImported();
         assertThat(isImported).isTrue();
     }
+    @Test
+    void returnsCost() {
+        Item item = new Item(1234, "Item1", 123, goodsCategory, true);
+
+        assertThat(item.cost()).isEqualTo(123);
+    }
 }

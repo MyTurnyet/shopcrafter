@@ -8,6 +8,6 @@ public class TaxCalculator {
     }
 
     public int total() {
-        return 0;
+        return (int) (cost * 0.1);
     }
 }

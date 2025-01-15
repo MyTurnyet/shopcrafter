@@ -10,8 +10,20 @@ class TaxCalculatorTests {
 
     @Test
     void returnsZeroByDefault() {
-        TaxCalculator taxCalculator = new TaxCalculator(10);
+        TaxCalculator taxCalculator = new TaxCalculator(0);
         int totalAmount =taxCalculator.total();
         assertThat(totalAmount).isZero();
+    }
+    @Test
+    void returns10PercentOf100() {
+        TaxCalculator taxCalculator = new TaxCalculator(100);
+        int totalAmount =taxCalculator.total();
+        assertThat(totalAmount).isEqualTo(10);
+    }
+    @Test
+    void returns5PercentOf50() {
+        TaxCalculator taxCalculator = new TaxCalculator(50);
+        int totalAmount =taxCalculator.total();
+        assertThat(totalAmount).isEqualTo(5);
     }
 }

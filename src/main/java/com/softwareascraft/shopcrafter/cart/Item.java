@@ -6,11 +6,13 @@ public class Item {
     private final int sku;
     private final String name;
     private final int price;
+    private final ItemCategory category;
 
     public Item(int sku, String name, int price, ItemCategory category) {
         this.sku = sku;
         this.name = name;
         this.price = price;
+        this.category = category;
     }
     @Override
     public boolean equals(Object o) {
@@ -24,6 +26,6 @@ public class Item {
     }
 
     public boolean isInCategory(ItemCategory expectedCategory) {
-        return true;
+        return this.category.equals(expectedCategory);
     }
 }

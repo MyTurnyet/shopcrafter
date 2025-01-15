@@ -42,5 +42,12 @@ class ItemTests {
         boolean hasCategory = item1.isInCategory(goodsCategory);
         assertThat(hasCategory).isTrue();
     }
+    @Test
+    void doesNotHaveCategory() {
+        Item item1 = new Item(1234, "Item Name", 0,goodsCategory );
+        ItemCategory food = new ItemCategory("Food");
+        boolean hasCategory = item1.isInCategory(food);
+        assertThat(hasCategory).isFalse();
+    }
 
 }

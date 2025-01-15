@@ -8,6 +8,8 @@ public class TaxCalculator {
     }
 
     public int total() {
-        return (int) (cost * 0.1);
+        double tenPercentTax = cost * 0.1;
+        long roundedTaxAmount = Math.round(tenPercentTax / 5) * 5;
+        return (int) roundedTaxAmount;
     }
 }

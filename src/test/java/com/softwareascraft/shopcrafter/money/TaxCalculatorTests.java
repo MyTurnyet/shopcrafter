@@ -26,4 +26,10 @@ class TaxCalculatorTests {
         int totalAmount =taxCalculator.total();
         assertThat(totalAmount).isEqualTo(5);
     }
+    @Test
+    void roundsTaxLessThan5DownTo0() {
+        TaxCalculator taxCalculator = new TaxCalculator(20);
+        int totalAmount =taxCalculator.total();
+        assertThat(totalAmount).isEqualTo(0);
+    }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ShoppingCart {
 
-    private List<Item> itemList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
 
     public int itemCount() {
         return itemList.size();

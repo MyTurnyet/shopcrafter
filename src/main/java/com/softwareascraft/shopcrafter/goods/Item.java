@@ -1,5 +1,7 @@
 package com.softwareascraft.shopcrafter.goods;
 
+import com.softwareascraft.shopcrafter.money.TaxCalculator;
+
 import java.util.Objects;
 
 public class Item {
@@ -39,7 +41,7 @@ public class Item {
         return this.isImported;
     }
 
-    public int cost() {
-        return this.price;
+    public int calculateTaxes(TaxCalculator taxCalculator) {
+        return taxCalculator.total(this.price);
     }
 }

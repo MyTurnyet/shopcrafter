@@ -1,5 +1,6 @@
 package com.softwareascraft.shopcrafter.goods;
 
+import com.softwareascraft.shopcrafter.money.TaxCalculator;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -62,10 +63,12 @@ class ItemTests {
         boolean isImported = item.isImported();
         assertThat(isImported).isTrue();
     }
-    @Test
-    void returnsCost() {
-        Item item = new Item(1234, "Item1", 123, goodsCategory, true);
 
-        assertThat(item.cost()).isEqualTo(123);
+    @Test
+    void returnsTotalTaxOnGoodsItem() {
+        Item item = new Item(1234, "Item1", 100, goodsCategory, true);
+        TaxCalculator taxCalculator = new TaxCalculator(10);
+        int taxes = item.calculateTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(10);
     }
 }

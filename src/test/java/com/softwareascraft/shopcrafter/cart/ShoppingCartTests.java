@@ -12,13 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ShoppingCartTests {
     ShoppingCart shoppingCart;
     Item bananaItem;
-    private ItemCategory foodCategory;
     private int bananaPrice;
 
     @BeforeEach
     void setup() {
         shoppingCart = new ShoppingCart();
-        foodCategory = new ItemCategory("Food");
+        ItemCategory foodCategory = new ItemCategory("Food");
         bananaPrice = 100;
         bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
         shoppingCart.addItem(bananaItem);

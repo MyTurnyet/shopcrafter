@@ -1,15 +1,16 @@
 package com.softwareascraft.shopcrafter.money;
 
 public class TaxCalculator {
-    private final int cost;
 
-    public TaxCalculator(int cost) {
-        this.cost = cost;
+    private final int taxRate;
+
+    public TaxCalculator(int taxRate) {
+        this.taxRate = taxRate;
     }
 
-    public int total() {
-        double tenPercentTax = cost * 0.1;
-        long roundedTaxAmount = Math.round(tenPercentTax / 10) * 5;
-        return (int) roundedTaxAmount;
+    public int total(int cost) {
+        double percentage = (double) taxRate / 100;
+        float tenPercentTax = (float) (cost * percentage);
+        return 5 * (Math.round(tenPercentTax / 5));
     }
 }

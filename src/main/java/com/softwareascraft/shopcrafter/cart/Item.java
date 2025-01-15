@@ -1,6 +1,8 @@
 package com.softwareascraft.shopcrafter.cart;
 
-public class Item implements Equatable<Item> {
+import java.util.Objects;
+
+public class Item {
     private final int sku;
     private final String name;
     private final int price;
@@ -10,10 +12,14 @@ public class Item implements Equatable<Item> {
         this.name = name;
         this.price = price;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Item item)) return false;
+        return sku == item.sku && price == item.price && Objects.equals(name, item.name);
+    }
 
-    public boolean isSameAs(Item otherItem) {
-        return this.sku == otherItem.sku
-               && this.name.equals(otherItem.name)
-                && this.price == otherItem.price;
+    @Override
+    public int hashCode() {
+        return Objects.hash(sku, name, price);
     }
 }

@@ -1,6 +1,8 @@
 package com.softwareascraft.shopcrafter.cart;
 
-public class ItemCategory implements Equatable<ItemCategory> {
+import java.util.Objects;
+
+public class ItemCategory {
     private final String name;
 
     public ItemCategory(String name) {
@@ -8,7 +10,13 @@ public class ItemCategory implements Equatable<ItemCategory> {
     }
 
     @Override
-    public boolean isSameAs(ItemCategory other) {
-        return this.name.equals(other.name);
+    public boolean equals(Object o) {
+        if (!(o instanceof ItemCategory that)) return false;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }

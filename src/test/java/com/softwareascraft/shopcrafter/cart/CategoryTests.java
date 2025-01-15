@@ -11,14 +11,12 @@ class CategoryTests {
     void matchIfNameIsSame() {
         ItemCategory category1 = new ItemCategory("Game");
         ItemCategory category2 = new ItemCategory("Game");
-        boolean sameAs = category1.isSameAs(category2);
-        assertThat(sameAs).isTrue();
+        assertThat(category1).isEqualTo(category2);
     }
     @Test
     void doNotMatchItNameIsDifferent() {
         ItemCategory category1 = new ItemCategory("Game");
         ItemCategory category2 = new ItemCategory("Food");
-        boolean sameAs = category1.isSameAs(category2);
-        assertThat(sameAs).isFalse();
+        assertThat(category1).isNotEqualTo(category2);
     }
 }

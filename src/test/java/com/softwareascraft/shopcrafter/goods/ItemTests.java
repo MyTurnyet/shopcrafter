@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ItemTests {
 
     @Test
-    void itemMatchesSkuAndName() {
+    void itemMatches() {
         Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
         Item other = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
         assertThat(item).isEqualTo(other);

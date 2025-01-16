@@ -18,7 +18,7 @@ public class Item {
         this.price = price;
         this.category = category;
         this.isImported = isImported;
-        
+
     }
 
     @Override
@@ -43,11 +43,7 @@ public class Item {
         return this.isImported;
     }
 
-    public int calculateTaxes(TaxCalculator taxCalculator) {
+    public int calculateAllTaxes(TaxCalculator taxCalculator) {
         return taxCalculator.total(this.price);
-    }
-
-    public int calculateAllTaxes(List<TaxCalculator> taxCalculators) {
-        return taxCalculators.stream().mapToInt(this::calculateTaxes).sum();
     }
 }

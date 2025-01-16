@@ -33,4 +33,23 @@ class TaxRateTests {
         boolean applies = taxRate.appliesTo(foodCategory);
         assertThat(applies).isTrue();
     }
+
+    @Test
+    void returnsTenPercentTax() {
+        TaxRate taxRate = new TaxRate(10, Collections.emptyList());
+        int amount = taxRate.amount(100);
+        assertThat(amount).isEqualTo(10);
+    }
+    @Test
+    void returns12_5PercentageTax() {
+        TaxRate taxRate = new TaxRate(12.5, Collections.emptyList());
+        int amount = taxRate.amount(100);
+        assertThat(amount).isEqualTo(13);
+    }
+    @Test
+    void returns12_5PercentageTaxOf300() {
+        TaxRate taxRate = new TaxRate(12.2, Collections.emptyList());
+        int amount = taxRate.amount(300);
+        assertThat(amount).isEqualTo(37);
+    }
 }

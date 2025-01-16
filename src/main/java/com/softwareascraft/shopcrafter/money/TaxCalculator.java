@@ -1,18 +1,21 @@
 package com.softwareascraft.shopcrafter.money;
 
+import java.util.List;
+
 public class TaxCalculator {
 
-    private final int taxRate;
+    private final int taxRate = 0;
+    private List<TaxRate> appliedTaxes;
 
-    public  TaxCalculator(int taxRate) {
-        this.taxRate = taxRate;
+    public  TaxCalculator(List<TaxRate> appliedTaxes) {
+        this.appliedTaxes = appliedTaxes;
     }
 
     public int total(int cost) {
-        double percentage = (double) taxRate / 100;
-        float tenPercentTax = (float) (cost * percentage);
-        return 5 * (Math.round(tenPercentTax / 5));
+        double sum = this.appliedTaxes.stream().mapToInt(rate -> rate.amount(cost)).sum();
+        return (int) (5 * (Math.round(sum / 5)));
     }
+
 
 
 }

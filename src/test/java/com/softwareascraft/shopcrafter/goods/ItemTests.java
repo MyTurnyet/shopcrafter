@@ -82,11 +82,29 @@ class ItemTests {
     }
 
     @Test
+    void returnsTotalTaxof24_8Percent_2Taxes() {
+        Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
+        TaxRate eightPercent = new TaxRate(10.8);
+        TaxRate twentyPercent = new TaxRate(14);
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(eightPercent, twentyPercent));
+        int taxes = item.calculateAllTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(25);
+    }
+
+    @Test
     void returnsTotalTaxof15Percent_1Taxes() {
         Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
         TaxRate fifteenPercent = new TaxRate(15);
         TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent));
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(15);
+    }
+    @Test
+    void returnsTotalTaxof18_6Percent_1Taxes() {
+        Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
+        TaxRate fifteenPercent = new TaxRate(18.6);
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent));
+        int taxes = item.calculateAllTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(20);
     }
 }

@@ -1,18 +1,17 @@
 package com.softwareascraft.shopcrafter.money;
 
 import com.softwareascraft.shopcrafter.goods.Item;
+import com.softwareascraft.shopcrafter.goods.ItemBuilder;
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
 import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.list;
 
 @Tag("Unit")
 class TaxCalculatorTests {
@@ -25,7 +24,7 @@ class TaxCalculatorTests {
     void setup() {
         int bananaPrice = 100;
         ItemCategory foodCategory = new GeneralCategory("Food");
-        bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
+        bananaItem = new ItemBuilder().addCategory(foodCategory).isImported(false).create(1234, "Banana", bananaPrice);
         taxRateList.add(TaxRate.DefaultTax);
         taxCalculator = new TaxCalculator(taxRateList);
     }

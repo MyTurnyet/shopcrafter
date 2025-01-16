@@ -1,6 +1,7 @@
 package com.softwareascraft.shopcrafter.cart;
 
 import com.softwareascraft.shopcrafter.goods.Item;
+import com.softwareascraft.shopcrafter.goods.ItemBuilder;
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
 import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,7 @@ class ShoppingCartTests {
         shoppingCart = new ShoppingCart();
         ItemCategory foodCategory = new GeneralCategory("Food");
         bananaPrice = 100;
-        bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
+        bananaItem = new ItemBuilder().addCategory(foodCategory).isImported(false).create(1234, "Banana", bananaPrice);
         shoppingCart.addItem(bananaItem);
 
     }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,16 @@ class TaxCalculatorTests {
         TaxCalculator taxCalculator = new TaxCalculator(taxRateList);
         int totalAmount = taxCalculator.total(25);
         assertThat(totalAmount).isEqualTo(5);
+    }
+
+    @Test
+    void calculatorAppliesMultipleTaxRates() {
+        TaxRate fouteenPointTwo = new TaxRate(14.2);
+        TaxRate twoPoint5 = new TaxRate(2.5);
+        List<TaxRate> rateList = List.of(fouteenPointTwo, twoPoint5);
+        TaxCalculator taxCalculator = new TaxCalculator(rateList);
+        int totalAmount = taxCalculator.total(3200);
+        assertThat(totalAmount).isEqualTo(535);
     }
 
 }

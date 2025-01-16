@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TaxRate {
     public static TaxRate DefaultTax = new TaxRate(10);
+    public static TaxRate ImportedTax = new TaxRate(5, List.of(ItemCategory.Imported));
     private final double rate;
     private final List<ItemCategory> appliedCategories;
 

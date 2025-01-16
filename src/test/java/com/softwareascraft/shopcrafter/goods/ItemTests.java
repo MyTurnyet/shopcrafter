@@ -8,28 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.softwareascraft.shopcrafter.goods.ItemCategory.Beauty;
+import static com.softwareascraft.shopcrafter.money.TaxRate.ImportedTax;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Unit")
 class ItemTests {
-
-    private List<ItemCategory> oneCategory = List.of(ItemCategory.Beauty);
-
-
-    private Item createImportedItem(int sku, String itemName, int price) {
-
-        return createItem(sku, itemName, price, true);
-    }
-
-    private Item createItem(int sku, String itemName, int price) {
-
-        return createItem(sku, itemName, price, false);
-    }
-
-    private Item createItem(int sku, String itemName, int price, boolean isImported) {
-        Item item = new ItemBuilder().addCategories(oneCategory).isImported(isImported).create(sku, itemName, price);
-        return item;
-    }
 
     @Test
     void itemMatches() {
@@ -62,7 +46,7 @@ class ItemTests {
     @Test
     void hasCategory() {
         Item item = createItem(1234, "Item Name", 0);
-        boolean hasCategory = item.isInCategory(ItemCategory.Beauty);
+        boolean hasCategory = item.isInCategory(Beauty);
         assertThat(hasCategory).isTrue();
     }
 
@@ -120,7 +104,7 @@ class ItemTests {
 
     @Test
     void returnsTotalTax_18_6Percent_1Taxes() {
-         Item item = createItem(1234, "Item", 100);
+        Item item = createItem(1234, "Item", 100);
         TaxRate fifteenPercent = new TaxRate(18.6);
         TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent));
         int taxes = item.calculateAllTaxes(taxCalculator);
@@ -140,10 +124,34 @@ class ItemTests {
     @Test
     void appliesOnlyTaxesForCategories() {
         Item item = createItem(1234, "Item", 3200);
-        TaxRate fouteenPointTwo = new TaxRate(14.2, List.of(ItemCategory.Beauty));
+        TaxRate fourteenPointTwo = new TaxRate(14.2, List.of(Beauty));
         TaxRate twoPoint5 = new TaxRate(2.5, List.of(ItemCategory.Food));
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fourteenPointTwo, twoPoint5));
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(455);
     }
+
+    @Test
+    void returnsTotalTaxof20Percent_1Taxes_Imported() {
+        Item item = createImportedItem(1234, "Item", 100);
+        TaxRate fifteenPercent = new TaxRate(15);
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent, ImportedTax));
+        int taxes = item.calculateAllTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(20);
+    }
+
+    private final List<ItemCategory> oneCategory = List.of(Beauty);
+
+    private Item createImportedItem(int sku, String itemName, int price) {
+        return createItem(sku, itemName, price, true);
+    }
+
+    private Item createItem(int sku, String itemName, int price) {
+        return createItem(sku, itemName, price, false);
+    }
+
+    private Item createItem(int sku, String itemName, int price, boolean isImported) {
+        return new ItemBuilder().addCategories(oneCategory).isImported(isImported).create(sku, itemName, price);
+    }
+
 }

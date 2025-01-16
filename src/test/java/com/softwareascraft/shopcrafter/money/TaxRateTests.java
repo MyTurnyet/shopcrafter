@@ -5,6 +5,7 @@ import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,5 +26,11 @@ class TaxRateTests {
         TaxRate taxRate = new TaxRate(10, List.of(goodsCategory));
         boolean applies = taxRate.appliesTo(foodCategory);
         assertThat(applies).isFalse();
+    }
+    @Test
+    void applyToAllIfListIsEmpty() {
+        TaxRate taxRate = new TaxRate(10, Collections.emptyList());
+        boolean applies = taxRate.appliesTo(foodCategory);
+        assertThat(applies).isTrue();
     }
 }

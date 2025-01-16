@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Unit")
-class CategoryTests {
+class GeneralCategoryTests {
     @Test
     void matchIfNameIsSame() {
         ItemCategory category1 = new GeneralCategory("Game");

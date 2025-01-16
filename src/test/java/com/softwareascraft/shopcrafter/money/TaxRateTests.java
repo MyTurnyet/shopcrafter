@@ -11,11 +11,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("Unit")
 class TaxRateTests {
     ItemCategory goodsCategory = new ItemCategory("Goods");
+    ItemCategory foodCategory = new ItemCategory("Food");
 
     @Test
     void shouldApplyToGoodsCategory() {
         TaxRate taxRate = new TaxRate(10, List.of(goodsCategory));
         boolean applies = taxRate.appliesTo(goodsCategory);
         assertThat(applies).isTrue();
+    }
+    @Test
+    void shouldNotApplyToFoodCategory() {
+        TaxRate taxRate = new TaxRate(10, List.of(goodsCategory));
+        boolean applies = taxRate.appliesTo(foodCategory);
+        assertThat(applies).isFalse();
     }
 }

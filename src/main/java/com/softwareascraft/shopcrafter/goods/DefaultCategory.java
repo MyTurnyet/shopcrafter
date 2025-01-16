@@ -1,19 +1,9 @@
 package com.softwareascraft.shopcrafter.goods;
 
-public class DefaultCategory implements ItemCategory {
-    private final String name;
-
-    public DefaultCategory(String name) {
-        this.name = name;
-    }
+public record DefaultCategory(String name) implements ItemCategory {
 
     @Override
     public boolean equals(ItemCategory other) {
         return true;
-    }
-
-    @Override
-    public String name() {
-        return name;
     }
 }

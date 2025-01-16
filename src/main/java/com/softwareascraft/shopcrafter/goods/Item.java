@@ -9,14 +9,19 @@ public class Item {
     private final int sku;
     private final String name;
     private final int price;
-    private final ItemCategory category;
+    private List<ItemCategory> categories;
     private final boolean isImported;
 
     public Item(int sku, String name, int price, ItemCategory category, boolean isImported) {
+        this(sku, name, price, List.of(category), isImported);
+
+    }
+
+    public Item(int sku, String name, int price, List<ItemCategory> categories, boolean isImported) {
         this.sku = sku;
         this.name = name;
         this.price = price;
-        this.category = category;
+        this.categories = categories;
         this.isImported = isImported;
 
     }
@@ -27,7 +32,7 @@ public class Item {
         return sku == item.sku
                && price == item.price
                && Objects.equals(name, item.name)
-                && isImported == item.isImported;
+               && isImported == item.isImported;
     }
 
     @Override
@@ -36,7 +41,7 @@ public class Item {
     }
 
     public boolean isInCategory(ItemCategory expectedCategory) {
-        return this.category.equals(expectedCategory);
+        return this.categories.stream().anyMatch(expectedCategory::equals);
     }
 
     public boolean isImported() {
@@ -45,6 +50,6 @@ public class Item {
 
     public int calculateAllTaxes(TaxCalculator taxCalculator) {
 
-        return taxCalculator.total(this.price, List.of(this.category));
+        return taxCalculator.total(this.price, this.categories);
     }
 }

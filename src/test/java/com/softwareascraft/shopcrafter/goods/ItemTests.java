@@ -1,7 +1,6 @@
 package com.softwareascraft.shopcrafter.goods;
 
 import com.softwareascraft.shopcrafter.money.TaxCalculator;
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Unit")
 class ItemTests {
-        ItemCategory goodsCategory = new ItemCategory("Goods");
+        ItemCategory goodsCategory = new GeneralCategory("Goods");
 
     @Test
     void itemMatchesSkuAndName() {
@@ -50,7 +49,7 @@ class ItemTests {
     @Test
     void doesNotHaveCategory() {
         Item item = new Item(1234, "Item Name", 0,goodsCategory, false);
-        ItemCategory food = new ItemCategory("Food");
+        ItemCategory food = new GeneralCategory("Food");
         boolean hasCategory = item.isInCategory(food);
         assertThat(hasCategory).isFalse();
     }

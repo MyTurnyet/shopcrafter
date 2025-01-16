@@ -2,6 +2,7 @@ package com.softwareascraft.shopcrafter.cart;
 
 import com.softwareascraft.shopcrafter.goods.Item;
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
+import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class ShoppingCartTests {
     @BeforeEach
     void setup() {
         shoppingCart = new ShoppingCart();
-        ItemCategory foodCategory = new ItemCategory("Food");
+        ItemCategory foodCategory = new GeneralCategory("Food");
         bananaPrice = 100;
         bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
         shoppingCart.addItem(bananaItem);

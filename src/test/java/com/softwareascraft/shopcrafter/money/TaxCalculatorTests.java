@@ -2,6 +2,7 @@ package com.softwareascraft.shopcrafter.money;
 
 import com.softwareascraft.shopcrafter.goods.Item;
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
+import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("Unit")
 class TaxCalculatorTests {
 
-    private Item bananaItem;
+    private Item  bananaItem;
 
     @BeforeEach
     void setup(){
         int bananaPrice = 100;
-        ItemCategory foodCategory = new ItemCategory("Food");
+        ItemCategory foodCategory = new GeneralCategory("Food");
         bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
 
     }

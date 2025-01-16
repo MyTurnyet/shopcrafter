@@ -1,6 +1,7 @@
 package com.softwareascraft.shopcrafter.money;
 
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
+import com.softwareascraft.shopcrafter.goods.GeneralCategory;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Unit")
 class TaxRateTests {
-    ItemCategory goodsCategory = new ItemCategory("Goods");
-    ItemCategory foodCategory = new ItemCategory("Food");
+    ItemCategory goodsCategory = new GeneralCategory("Goods");
+    ItemCategory foodCategory = new GeneralCategory("Food");
 
     @Test
     void shouldApplyToGoodsCategory() {

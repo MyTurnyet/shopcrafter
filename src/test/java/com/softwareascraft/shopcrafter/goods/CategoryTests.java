@@ -9,14 +9,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CategoryTests {
     @Test
     void matchIfNameIsSame() {
-        ItemCategory category1 = new ItemCategory("Game");
-        ItemCategory category2 = new ItemCategory("Game");
+        ItemCategory category1 = new GeneralCategory("Game");
+        ItemCategory category2 = new GeneralCategory("Game");
         assertThat(category1).isEqualTo(category2);
     }
     @Test
     void doNotMatchItNameIsDifferent() {
-        ItemCategory category1 = new ItemCategory("Game");
-        ItemCategory category2 = new ItemCategory("Food");
+        ItemCategory category1 = new GeneralCategory("Game");
+        ItemCategory category2 = new GeneralCategory("Food");
         assertThat(category1).isNotEqualTo(category2);
     }
 }

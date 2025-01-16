@@ -50,4 +50,5 @@ class TaxCalculatorTests {
         int totalAmount =taxCalculator.total(25);
         assertThat(totalAmount).isEqualTo(5);
     }
+
 }

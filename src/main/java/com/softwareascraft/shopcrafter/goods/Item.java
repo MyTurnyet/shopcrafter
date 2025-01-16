@@ -2,6 +2,7 @@ package com.softwareascraft.shopcrafter.goods;
 
 import com.softwareascraft.shopcrafter.money.TaxCalculator;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Item {
@@ -43,5 +44,9 @@ public class Item {
 
     public int calculateTaxes(TaxCalculator taxCalculator) {
         return taxCalculator.total(this.price);
+    }
+
+    public int calculateAllTaxes(List<TaxCalculator> taxCalculators) {
+        return taxCalculators.stream().mapToInt(this::calculateTaxes).sum();
     }
 }

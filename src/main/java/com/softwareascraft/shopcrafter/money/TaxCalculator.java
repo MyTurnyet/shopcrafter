@@ -1,7 +1,5 @@
 package com.softwareascraft.shopcrafter.money;
 
-import com.softwareascraft.shopcrafter.goods.Item;
-
 public class TaxCalculator {
 
     private final int taxRate;

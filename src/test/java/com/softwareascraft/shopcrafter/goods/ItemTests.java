@@ -1,8 +1,12 @@
 package com.softwareascraft.shopcrafter.goods;
 
 import com.softwareascraft.shopcrafter.money.TaxCalculator;
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,11 +68,22 @@ class ItemTests {
         assertThat(isImported).isTrue();
     }
 
+
+//    @Test
+    void returnsTotalTaxof28Percent_2Taxes() {
+        Item item = new Item(1234, "Item1", 100, goodsCategory, true);
+        TaxCalculator taxCalculator = new TaxCalculator(22);
+        TaxCalculator importedTaxCalculator = new TaxCalculator(6);
+        int taxes = item.calculateAllTaxes(List.of(taxCalculator,importedTaxCalculator));
+        assertThat(taxes).isEqualTo(25);
+    }
+
     @Test
-    void returnsTotalTaxOnGoodsItem() {
+    void returnsTotalTaxof15Percent_2Taxes() {
         Item item = new Item(1234, "Item1", 100, goodsCategory, true);
         TaxCalculator taxCalculator = new TaxCalculator(10);
-        int taxes = item.calculateTaxes(taxCalculator);
-        assertThat(taxes).isEqualTo(10);
+        TaxCalculator importedTaxCalculator = new TaxCalculator(5);
+        int taxes = item.calculateAllTaxes(List.of(taxCalculator,importedTaxCalculator));
+        assertThat(taxes).isEqualTo(15);
     }
 }

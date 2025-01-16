@@ -3,6 +3,7 @@ package com.softwareascraft.shopcrafter.goods;
 import java.util.Objects;
 
 public class ItemCategory {
+
     private final String name;
 
     public ItemCategory(String name) {

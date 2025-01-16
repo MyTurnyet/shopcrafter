@@ -117,14 +117,14 @@ class ItemTests {
         assertThat(taxes).isEqualTo(535);
     }
 
-//    @Test
-//    void appliesOnlyTaxesForCategories() {
-//        Item item = new Item(1234, "Item1", 3200, ItemCategory.Beauty, true);
-//
-//        TaxRate fouteenPointTwo = new TaxRate(14.2,List.of(ItemCategory.Beauty));
-//        TaxRate twoPoint5 = new TaxRate(2.5,List.of(ItemCategory.Food));
-//        TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
-//        int taxes = item.calculateAllTaxes(taxCalculator);
-//        assertThat(taxes).isEqualTo(455);
-//    }
+    @Test
+    void appliesOnlyTaxesForCategories() {
+        Item item = new Item(1234, "Item1", 3200, ItemCategory.Beauty, true);
+
+        TaxRate fouteenPointTwo = new TaxRate(14.2,List.of(ItemCategory.Beauty));
+        TaxRate twoPoint5 = new TaxRate(2.5,List.of(ItemCategory.Food));
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
+        int taxes = item.calculateAllTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(455);
+    }
 }

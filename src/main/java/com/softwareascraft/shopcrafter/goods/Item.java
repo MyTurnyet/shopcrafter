@@ -45,6 +45,6 @@ public class Item {
 
     public int calculateAllTaxes(TaxCalculator taxCalculator) {
 
-        return taxCalculator.total(this.price);
+        return taxCalculator.total(this.price, List.of(this.category));
     }
 }

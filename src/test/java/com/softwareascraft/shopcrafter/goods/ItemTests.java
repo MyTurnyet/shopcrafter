@@ -107,4 +107,13 @@ class ItemTests {
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(20);
     }
+    @Test
+    void returnsTotalTaxofmultiplePercentTaxes() {
+        Item item = new Item(1234, "Item1", 3200, ItemCategory.Beauty, true);
+        TaxRate fouteenPointTwo = new TaxRate(14.2);
+        TaxRate twoPoint5 = new TaxRate(2.5);
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
+        int taxes = item.calculateAllTaxes(taxCalculator);
+        assertThat(taxes).isEqualTo(535);
+    }
 }

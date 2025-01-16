@@ -13,44 +13,62 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("Unit")
 class ItemTests {
 
+    private List<ItemCategory> oneCategory = List.of(ItemCategory.Beauty);
+
+
+    private Item createImportedItem(int sku, String itemName, int price) {
+
+        return createItem(sku, itemName, price, true);
+    }
+
+    private Item createItem(int sku, String itemName, int price) {
+
+        return createItem(sku, itemName, price, false);
+    }
+
+    private Item createItem(int sku, String itemName, int price, boolean isImported) {
+        Item item = new Item(sku, itemName, price, oneCategory, isImported);
+        return item;
+    }
+
     @Test
     void itemMatches() {
-        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
-        Item other = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 0);
+        Item other = createItem(1234, "Item Name", 0);
         assertThat(item).isEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentPrice() {
-        Item item = new Item(1234, "Item Name", 123, ItemCategory.Beauty, false);
-        Item other = new Item(1234, "Item Name", 10, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 123);
+        Item other = createItem(1234, "Item Name", 10);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentSKU() {
-        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
-        Item other = new Item(2345, "Item Name", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 0);
+        Item other = createItem(2345, "Item Name", 0);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentNames() {
-        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
-        Item other = new Item(1234, "Other Name", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 0);
+        Item other = createItem(1234, "Other Name", 0);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void hasCategory() {
-        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 0);
         boolean hasCategory = item.isInCategory(ItemCategory.Beauty);
         assertThat(hasCategory).isTrue();
     }
 
     @Test
     void doesNotHaveCategory() {
-        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item Name", 0);
         ItemCategory food = new GeneralCategory("Food");
         boolean hasCategory = item.isInCategory(food);
         assertThat(hasCategory).isFalse();
@@ -58,14 +76,14 @@ class ItemTests {
 
     @Test
     void isNotImported() {
-        Item item = new Item(1234, "Item1", 0, ItemCategory.Beauty, false);
+        Item item = createItem(1234, "Item1", 0);
         boolean isImported = item.isImported();
         assertThat(isImported).isFalse();
     }
 
     @Test
     void isImported() {
-        Item item = new Item(1234, "Item1", 0, ItemCategory.Beauty, true);
+        Item item = createImportedItem(1234, "Imported Stuff", 100);
         boolean isImported = item.isImported();
         assertThat(isImported).isTrue();
     }
@@ -73,7 +91,7 @@ class ItemTests {
 
     @Test
     void returnsTotalTaxof28Percent_2Taxes() {
-        Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
+        Item item = createImportedItem(1234, "Imported Stuff", 100);
         TaxRate eightPercent = new TaxRate(8);
         TaxRate twentyPercent = new TaxRate(20);
         TaxCalculator taxCalculator = new TaxCalculator(List.of(eightPercent, twentyPercent));
@@ -99,6 +117,7 @@ class ItemTests {
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(15);
     }
+
     @Test
     void returnsTotalTaxof18_6Percent_1Taxes() {
         Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
@@ -107,6 +126,7 @@ class ItemTests {
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(20);
     }
+
     @Test
     void returnsTotalTaxofmultiplePercentTaxes() {
         Item item = new Item(1234, "Item1", 3200, ItemCategory.Beauty, true);
@@ -121,8 +141,8 @@ class ItemTests {
     void appliesOnlyTaxesForCategories() {
         Item item = new Item(1234, "Item1", 3200, ItemCategory.Beauty, true);
 
-        TaxRate fouteenPointTwo = new TaxRate(14.2,List.of(ItemCategory.Beauty));
-        TaxRate twoPoint5 = new TaxRate(2.5,List.of(ItemCategory.Food));
+        TaxRate fouteenPointTwo = new TaxRate(14.2, List.of(ItemCategory.Beauty));
+        TaxRate twoPoint5 = new TaxRate(2.5, List.of(ItemCategory.Food));
         TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
         int taxes = item.calculateAllTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(455);

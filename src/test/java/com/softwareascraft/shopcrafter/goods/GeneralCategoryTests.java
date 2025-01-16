@@ -11,12 +11,12 @@ class GeneralCategoryTests {
     void matchIfNameIsSame() {
         ItemCategory category1 = new GeneralCategory("Game");
         ItemCategory category2 = new GeneralCategory("Game");
-        assertThat(category1).isEqualTo(category2);
+        assertThat(category1.equals(category2)).isTrue();
     }
     @Test
     void doNotMatchItNameIsDifferent() {
         ItemCategory category1 = new GeneralCategory("Game");
         ItemCategory category2 = new GeneralCategory("Food");
-        assertThat(category1).isNotEqualTo(category2);
+        assertThat(category1.equals(category2)).isFalse();
     }
 }

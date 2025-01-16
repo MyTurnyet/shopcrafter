@@ -2,22 +2,20 @@ package com.softwareascraft.shopcrafter.goods;
 
 import java.util.Objects;
 
-public class GeneralCategory implements ItemCategory {
-
+public class DefaultCategory implements ItemCategory {
     private final String name;
 
-    public GeneralCategory(String name) {
+    public DefaultCategory(String name) {
         this.name = name;
     }
 
-
     @Override
     public boolean equals(ItemCategory other) {
-        return name.equals(other.name());
+        return true;
     }
 
     @Override
     public String name() {
-        return this.name;
+        return name;
     }
 }

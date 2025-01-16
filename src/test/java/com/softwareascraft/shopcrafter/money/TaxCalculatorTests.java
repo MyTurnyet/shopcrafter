@@ -19,6 +19,7 @@ class TaxCalculatorTests {
 
     private Item bananaItem;
     ArrayList<TaxRate> taxRateList = new ArrayList<>();
+    private TaxCalculator taxCalculator;
 
     @BeforeEach
     void setup() {
@@ -26,32 +27,29 @@ class TaxCalculatorTests {
         ItemCategory foodCategory = new GeneralCategory("Food");
         bananaItem = new Item(123, "Banana", bananaPrice, foodCategory, false);
         taxRateList.add(TaxRate.DefaultTax);
+        taxCalculator = new TaxCalculator(taxRateList);
     }
 
     @Test
     void returns10PercentOf100() {
-        TaxCalculator taxCalculator = new TaxCalculator(taxRateList);
         int totalAmount = taxCalculator.total(100);
         assertThat(totalAmount).isEqualTo(10);
     }
 
     @Test
     void returns5PercentOf50() {
-        TaxCalculator taxCalculator = new TaxCalculator(taxRateList);
         int totalAmount = taxCalculator.total(50);
         assertThat(totalAmount).isEqualTo(5);
     }
 
     @Test
     void roundsTaxLessThan3DownTo0() {
-        TaxCalculator taxCalculator = new TaxCalculator(taxRateList);
         int totalAmount = taxCalculator.total(24);
         assertThat(totalAmount).isEqualTo(0);
     }
 
     @Test
     void roundsTaxMoreThan3UpTo5() {
-        TaxCalculator taxCalculator = new TaxCalculator(taxRateList);
         int totalAmount = taxCalculator.total(25);
         assertThat(totalAmount).isEqualTo(5);
     }
@@ -68,8 +66,8 @@ class TaxCalculatorTests {
 
     @Test
     void appliesOnlyTaxesForCategories() {
-        TaxRate fouteenPointTwo = new TaxRate(14.2,List.of(ItemCategory.Beauty));
-        TaxRate twoPoint5 = new TaxRate(2.5,List.of(ItemCategory.Food));
+        TaxRate fouteenPointTwo = new TaxRate(14.2, List.of(ItemCategory.Beauty));
+        TaxRate twoPoint5 = new TaxRate(2.5, List.of(ItemCategory.Food));
         TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
         int total = taxCalculator.total(3200, List.of(ItemCategory.Beauty));
         assertThat(total).isEqualTo(455);

@@ -21,7 +21,7 @@ public class TaxRate {
 
     public boolean appliesTo(ItemCategory itemCategory) {
         if (this.appliedCategories.isEmpty()) return true;
-        return appliedCategories.stream().anyMatch(category -> itemCategory.equals(category));
+        return appliedCategories.stream().anyMatch(itemCategory::equals);
     }
 
     public int amount(int cost) {

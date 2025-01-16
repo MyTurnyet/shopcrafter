@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.list;
 
 @Tag("Unit")
 class TaxCalculatorTests {
@@ -65,4 +66,12 @@ class TaxCalculatorTests {
         assertThat(totalAmount).isEqualTo(535);
     }
 
+    @Test
+    void appliesOnlyTaxesForCategories() {
+        TaxRate fouteenPointTwo = new TaxRate(14.2,List.of(ItemCategory.Beauty));
+        TaxRate twoPoint5 = new TaxRate(2.5,List.of(ItemCategory.Food));
+        TaxCalculator taxCalculator = new TaxCalculator(List.of(fouteenPointTwo, twoPoint5));
+        int total = taxCalculator.total(3200, List.of(ItemCategory.Beauty));
+        assertThat(total).isEqualTo(455);
+    }
 }

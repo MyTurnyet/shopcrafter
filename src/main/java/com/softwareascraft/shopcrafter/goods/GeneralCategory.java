@@ -10,10 +10,10 @@ public class GeneralCategory implements ItemCategory {
         this.name = name;
     }
 
-
     @Override
     public boolean equals(ItemCategory other) {
-        return name.equals(other.name());
+        if (!(other instanceof GeneralCategory that)) return false;
+        return name.equals(that.name());
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.softwareascraft.shopcrafter.goods;
 
-import java.util.Objects;
-
 public class DefaultCategory implements ItemCategory {
     private final String name;
 

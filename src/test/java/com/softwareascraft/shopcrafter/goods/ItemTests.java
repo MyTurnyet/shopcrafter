@@ -11,44 +11,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Unit")
 class ItemTests {
-        ItemCategory goodsCategory = new GeneralCategory("Goods");
 
     @Test
     void itemMatchesSkuAndName() {
-        Item item = new Item(1234, "Item Name", 0, goodsCategory, false);
-        Item other = new Item(1234, "Item Name", 0, goodsCategory, false);
+        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
+        Item other = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
         assertThat(item).isEqualTo(other);
     }
     @Test
     void doesNotMatchWithDifferentPrice() {
-        Item item = new Item(1234, "Item Name", 123,goodsCategory, false);
-        Item other = new Item(1234, "Item Name",10, goodsCategory, false);
+        Item item = new Item(1234, "Item Name", 123,ItemCategory.Beauty, false);
+        Item other = new Item(1234, "Item Name",10, ItemCategory.Beauty, false);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentSKU() {
-        Item item = new Item(1234, "Item Name", 0, goodsCategory, false);
-        Item other = new Item(2345, "Item Name", 0, goodsCategory, false);
+        Item item = new Item(1234, "Item Name", 0, ItemCategory.Beauty, false);
+        Item other = new Item(2345, "Item Name", 0, ItemCategory.Beauty, false);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void doesNotMatchWithDifferentNames() {
-        Item item = new Item(1234, "Item Name", 0,goodsCategory, false);
-        Item other = new Item(1234, "Other Name", 0,goodsCategory, false);
+        Item item = new Item(1234, "Item Name", 0,ItemCategory.Beauty, false);
+        Item other = new Item(1234, "Other Name", 0,ItemCategory.Beauty, false);
         assertThat(item).isNotEqualTo(other);
     }
 
     @Test
     void hasCategory() {
-        Item item = new Item(1234, "Item Name", 0,goodsCategory, false);
-        boolean hasCategory = item.isInCategory(goodsCategory);
+        Item item = new Item(1234, "Item Name", 0,ItemCategory.Beauty, false);
+        boolean hasCategory = item.isInCategory(ItemCategory.Beauty);
         assertThat(hasCategory).isTrue();
     }
     @Test
     void doesNotHaveCategory() {
-        Item item = new Item(1234, "Item Name", 0,goodsCategory, false);
+        Item item = new Item(1234, "Item Name", 0,ItemCategory.Beauty, false);
         ItemCategory food = new GeneralCategory("Food");
         boolean hasCategory = item.isInCategory(food);
         assertThat(hasCategory).isFalse();
@@ -56,13 +55,13 @@ class ItemTests {
 
     @Test
     void isNotImported() {
-        Item item = new Item(1234, "Item1", 0, goodsCategory, false);
+        Item item = new Item(1234, "Item1", 0, ItemCategory.Beauty, false);
         boolean isImported = item.isImported();
         assertThat(isImported).isFalse();
     }
     @Test
     void isImported() {
-        Item item = new Item(1234, "Item1", 0, goodsCategory, true);
+        Item item = new Item(1234, "Item1", 0, ItemCategory.Beauty, true);
         boolean isImported = item.isImported();
         assertThat(isImported).isTrue();
     }
@@ -70,7 +69,7 @@ class ItemTests {
 
 //    @Test
     void returnsTotalTaxof28Percent_2Taxes() {
-        Item item = new Item(1234, "Item1", 100, goodsCategory, true);
+        Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
         TaxCalculator taxCalculator = new TaxCalculator(22);
         TaxCalculator importedTaxCalculator = new TaxCalculator(6);
         int taxes = item.calculateAllTaxes(List.of(taxCalculator,importedTaxCalculator));
@@ -79,7 +78,7 @@ class ItemTests {
 
     @Test
     void returnsTotalTaxof15Percent_2Taxes() {
-        Item item = new Item(1234, "Item1", 100, goodsCategory, true);
+        Item item = new Item(1234, "Item1", 100, ItemCategory.Beauty, true);
         TaxCalculator taxCalculator = new TaxCalculator(10);
         TaxCalculator importedTaxCalculator = new TaxCalculator(5);
         int taxes = item.calculateAllTaxes(List.of(taxCalculator,importedTaxCalculator));

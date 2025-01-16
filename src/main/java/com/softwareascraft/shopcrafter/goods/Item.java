@@ -18,6 +18,7 @@ public class Item {
         this.price = price;
         this.category = category;
         this.isImported = isImported;
+        
     }
 
     @Override

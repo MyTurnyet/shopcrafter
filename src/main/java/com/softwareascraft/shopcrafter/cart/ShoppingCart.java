@@ -1,7 +1,7 @@
 package com.softwareascraft.shopcrafter.cart;
 
-import ch.qos.logback.core.BasicStatusManager;
 import com.softwareascraft.shopcrafter.goods.Item;
+import com.softwareascraft.shopcrafter.money.TaxCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,11 @@ import java.util.List;
 public class ShoppingCart {
 
     private final List<Item> itemList = new ArrayList<>();
+    private final TaxCalculator taxCalculator;
+
+    public ShoppingCart(TaxCalculator taxCalculator) {
+        this.taxCalculator = taxCalculator;
+    }
 
     public int itemCount() {
         return itemList.size();

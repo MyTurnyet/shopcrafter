@@ -1,5 +1,6 @@
 package com.softwareascraft.shopcrafter.goods;
 
+import com.softwareascraft.shopcrafter.money.TaxCalculationService;
 import com.softwareascraft.shopcrafter.money.TaxCalculator;
 import com.softwareascraft.shopcrafter.money.TaxRate;
 import org.junit.jupiter.api.Tag;
@@ -78,8 +79,8 @@ class ItemTests {
         Item item = createItem(1234, "Imported Stuff", 100);
         TaxRate eightPercent = new TaxRate(8);
         TaxRate twentyPercent = new TaxRate(20);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(eightPercent, twentyPercent));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(eightPercent, twentyPercent));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(30);
     }
 
@@ -88,8 +89,8 @@ class ItemTests {
         Item item = createItem(1234, "Item", 100);
         TaxRate eightPercent = new TaxRate(10.8);
         TaxRate twentyPercent = new TaxRate(14);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(eightPercent, twentyPercent));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(eightPercent, twentyPercent));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(25);
     }
 
@@ -97,8 +98,8 @@ class ItemTests {
     void returnsTotalTaxof15Percent_1Taxes() {
         Item item = createItem(1234, "Item", 100);
         TaxRate fifteenPercent = new TaxRate(15);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(fifteenPercent));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(15);
     }
 
@@ -106,8 +107,8 @@ class ItemTests {
     void returnsTotalTax_18_6Percent_1Taxes() {
         Item item = createItem(1234, "Item", 100);
         TaxRate fifteenPercent = new TaxRate(18.6);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(fifteenPercent));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(20);
     }
 
@@ -116,8 +117,8 @@ class ItemTests {
         Item item = createItem(1234, "Item", 3200);
         TaxRate fourteenPointTwo = new TaxRate(14.2);
         TaxRate twoPoint5 = new TaxRate(2.5);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fourteenPointTwo, twoPoint5));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(fourteenPointTwo, twoPoint5));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(535);
     }
 
@@ -126,8 +127,8 @@ class ItemTests {
         Item item = createItem(1234, "Item", 3200);
         TaxRate fourteenPointTwo = new TaxRate(14.2, List.of(Beauty));
         TaxRate twoPoint5 = new TaxRate(2.5, List.of(ItemCategory.Food));
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fourteenPointTwo, twoPoint5));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(fourteenPointTwo, twoPoint5));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(455);
     }
 
@@ -135,8 +136,8 @@ class ItemTests {
     void returnsTotalTaxof20Percent_1Taxes_Imported() {
         Item item = createImportedItem(1234, "Item", 100);
         TaxRate fifteenPercent = new TaxRate(15);
-        TaxCalculator taxCalculator = new TaxCalculator(List.of(fifteenPercent, ImportedTax));
-        int taxes = item.calculateAllTaxes(taxCalculator);
+        TaxCalculator taxCalculator = new TaxCalculationService(List.of(fifteenPercent, ImportedTax));
+        int taxes = item.calculateTaxes(taxCalculator);
         assertThat(taxes).isEqualTo(20);
     }
 
@@ -153,5 +154,4 @@ class ItemTests {
     private Item createItem(int sku, String itemName, int price, boolean isImported) {
         return new ItemBuilder().addCategories(oneCategory).isImported(isImported).create(sku, itemName, price);
     }
-
 }

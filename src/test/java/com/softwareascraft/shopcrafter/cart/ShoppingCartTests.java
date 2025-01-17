@@ -4,6 +4,8 @@ import com.softwareascraft.shopcrafter.goods.Item;
 import com.softwareascraft.shopcrafter.goods.ItemBuilder;
 import com.softwareascraft.shopcrafter.goods.ItemCategory;
 import com.softwareascraft.shopcrafter.goods.GeneralCategory;
+import com.softwareascraft.shopcrafter.money.TaxCalculationService;
+import com.softwareascraft.shopcrafter.money.TaxCalculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ShoppingCartTests {
     ShoppingCart shoppingCart;
     Item bananaItem;
-    private int bananaPrice;
+    int bananaPrice;
+    TaxCalculator taxCalculator;
 
     @BeforeEach
     void setup() {
-        shoppingCart = new ShoppingCart();
+        taxCalculator = new FakeTaxCalculator();
+        shoppingCart = new ShoppingCart(taxCalculator);
         ItemCategory foodCategory = new GeneralCategory("Food");
         bananaPrice = 100;
         bananaItem = new ItemBuilder().addCategory(foodCategory).isImported(false).create(1234, "Banana", bananaPrice);
@@ -28,14 +32,14 @@ class ShoppingCartTests {
 
     @Test
     void shouldHaveNoItems() {
-        ShoppingCart emptyCart = new ShoppingCart();
+        ShoppingCart emptyCart = new ShoppingCart(taxCalculator);
         int itemCount = emptyCart.itemCount();
         assertThat(itemCount).isZero();
     }
 
     @Test
     void canAddItems() {
-        ShoppingCart emptyCart = new ShoppingCart();
+        ShoppingCart emptyCart = new ShoppingCart(taxCalculator);
         emptyCart.addItem(bananaItem);
         assertThat(emptyCart.itemCount()).isEqualTo(1);
     }
@@ -45,4 +49,5 @@ class ShoppingCartTests {
         int subTotal = shoppingCart.subTotal();
         assertThat(subTotal).isEqualTo(bananaPrice);
     }
+
 }

@@ -45,7 +45,7 @@ public class Item {
         return isInCategory(ItemCategory.Imported);
     }
 
-    public int calculateAllTaxes(TaxCalculator taxCalculator) {
-        return taxCalculator.total(this.price, this.categories);
+    public int calculateTaxes(TaxCalculator taxCalculator) {
+        return taxCalculator.calculate(this.price, this.categories);
     }
 }
